@@ -1,0 +1,64 @@
+<section class="container pb-5">
+  <div class="d-flex justify-content-between pt-5 w-80 m-auto align-items-center">
+    <h4 class="text-main m-0">total price:{{ totalCartPrice | currency }}</h4>
+    <div>
+        <button class="btn-main m-3" [routerLink]="['/order', cartid]">Order</button>
+      <button class="btn btn-outline-danger" (click)="clearcart()">
+        Clear Cart
+      </button>
+    </div>
+  </div>
+  @if(imgshow || totalCartPrice==0){
+  <div class="w-25">
+    <img src="./assets/images/empty.png" class="w-100" alt="empty-cart" />
+  </div>
+  }
+  <div class="row align-items-center">
+    @for(product of cartdata.products ;track $index){
+    <div class="col-2">
+      <img [src]="product.product.imageCover" class="w-100" alt="" />
+    </div>
+    <div class="col-8">
+      {{ product.product.title }}
+      <h6>price:{{ product.price |currency }}</h6>
+      <i
+        (click)="removeproduct(product.product.id)"
+        class="fa-solid fa-trash-can text-danger"
+      ></i>
+    </div>
+    <div class="col-2">
+      <div class="d-flex align-items-center gap-3">
+        <div class="bg-black i">
+          <i
+            (click)="
+              updateProductQuantity(product.product.id, product.count + 1)
+            "
+            class="fa-solid fa-plus text-white"
+          ></i>
+        </div>
+
+        <span>{{ product.count }}</span>
+
+        <div class="i bg-black">
+          <i
+            (click)="
+              updateProductQuantity(product.product.id, product.count - 1)
+            "
+            class="fa-solid fa-minus text-white"
+          ></i>
+        </div>
+      </div>
+    </div>
+    <hr />
+    }
+    <!-- <div class="d-flex justify-content-between pt-5 w-80 m-auto align-items-center">
+        <h5 class="text-main m-0">total price:{{ totalCartPrice }}</h5>
+        <div>
+            <button class="btn-main m-3" [routerLink]="['/order', cartid]">Order</button>
+          <button class="btn btn-outline-danger" (click)="clearcart()">
+            Clear Cart
+          </button>
+        </div>
+      </div> -->
+  </div>
+</section>

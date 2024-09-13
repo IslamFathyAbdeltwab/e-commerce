@@ -1,0 +1,35 @@
+<section class="mt-5 register-w m-auto pb-2 mb-2 shadow p-3">
+    <div class="w-50 m-auto">
+        <img src="./assets/images/freshcart-logo.svg" class="w-100" alt="">
+    </div>
+<form [formGroup]="orders">
+  
+    <div>
+        <label for="details">Details :</label>
+        <textarea formControlName="details" id="details" class="form-control"></textarea>
+    </div>
+    @if(orders.get("details")?.errors && orders.get("details")?.touched){
+        <p class="m-0 rounded-2 bg-danger-subtle p-2">required</p>
+   }
+    <div>
+        <label for="phone">phone :</label>
+        <input formControlName="phone" type="tel" id="phone" class="form-control" />
+    </div>
+    @if(orders.get("phone")?.errors && orders.get("phone")?.touched){
+        <p class="m-0 rounded-2 bg-danger-subtle p-2">required</p>
+   }
+    <div>
+        <label for="city">city :</label>
+        <input formControlName="city" type="text" id="city" class="form-control" />
+    </div>
+    @if(orders.get("city")?.errors && orders.get("city")?.touched){
+        <p class="m-0 rounded-2 bg-danger-subtle p-2">required</p>
+   }
+    <button class="btn-main my-2" (click)="pay()">Go To pay
+        @if(loading){
+            <i class="fas fa-spin fa-spinner"></i>
+        }
+    </button>
+</form>
+
+</section>

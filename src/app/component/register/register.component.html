@@ -1,0 +1,118 @@
+<section class="pt-5 register-w m-auto pb-2 mb-2">
+    <img src="./assets/images/freshcart-logo.svg" class="logo-w m-auto d-block" alt="">
+    <form [formGroup]="registerForm" (ngSubmit)="printforminfo()" class=" border shadow p-2 pb-1 py-3 m-auto">
+        <h1 class="h4">Create Acount</h1>
+        <div class="py-1">
+        <label for="name" class="w-100">Name:</label>
+        <input  formControlName="name" type="text" (keydown)="handelerr()" id="name" class="form-control">
+        @if(registerForm.get("name")?.errors &&(registerForm.get("name")?.touched ||registerForm.get("name")?.dirty) ){
+            <div class="bg-danger-subtle p-2  rounded-2">
+                @if(registerForm.get("name")?.getError("required")) {
+                    <p class="m-0">name is required</p>
+                }
+                 @else if(registerForm.get("name")?.getError("minlength") && registerForm.get("name")?.dirty ){
+                    <p class="m-0">minlength is 3 cheracter</p>
+                }
+                 @else if(registerForm.get("name")?.getError("maxlength") && registerForm.get("name")?.dirty) {
+                    <p class="m-0">maxlength is 20 cheracter</p>
+                }
+            </div>
+        }
+  
+        </div>
+        <div class="py-1">
+        
+        <label for="email" class="w-100">email:</label>
+        <input formControlName="email" type="email" (keydown)="handelerr()" id="email" class="form-control">
+        @if(registerForm.get("email")?.errors && (registerForm.get("email")?.touched ||registerForm.get("email")?.dirty)){
+            <div class="bg-danger-subtle p-2 rounded-2">
+                @if(registerForm.get("email")?.getError("required") ){
+                    <p class="m-0">email is required</p>
+                }
+               @else if (registerForm.get("email")?.getError("email") &&registerForm.get("email")?.dirty) {
+                <p class="m-0">none valid email</p>
+               }
+               
+            </div>
+        }
+       
+                
+        </div>
+        <div class="py-1">
+        
+        <label for="phone" class="w-100">phone:</label>
+        <input formControlName="phone" type="tel"  (keydown)="handelerr()" id="phone" class="form-control">
+        @if(registerForm.get("phone")?.errors &&(registerForm.get("phone")?.touched ||registerForm.get("phone")?.dirty) ){
+            <div class="bg-danger-subtle p-2  rounded-2">
+                @if(registerForm.get("phone")?.getError("required")) {
+                    <p class="m-0">phone is required</p>
+                }
+                 @else if(registerForm.get("phone")?.getError("pattern") && registerForm.get("phone")?.dirty ){
+                    <p class="m-0">just valid EGYPT NUMBER</p>
+                }
+               
+            </div>
+        }
+       
+        </div>
+        <div class="py-1 position-relative" >
+        
+        <label for="password" class="w-100">password:</label>
+        <input formControlName="password" #pass type="password" (keydown)="handelerr()" id="password" class="form-control">
+        @if(registerForm.get("password")?.dirty){
+           
+                <i class="fa-regular position-absolute end-0 top-m me-2 fa-eye" [class.d-none]="show" (click)="(pass.type='text'); show=true" ></i>
+                <i class="fa-regular position-absolute end-0 top-m me-2 fa-eye-slash" [class.d-none]="!show" (click)="(pass.type='password') ;show=false"></i>
+            
+        }
+        <!-- <i class="fa-regular position-absolute end-0 top-m me-2  fa-eye" [class.d-none]="show" (click)="(pass.type='text');show=true"></i>
+        <i class="fa-regular position-absolute end-0 top-m me-2  fa-eye-slash" [class.d-none]="!show" (click)="(pass.type='password');show=false"></i> -->
+        @if(registerForm.get("password")?.errors &&(registerForm.get("password")?.touched ||registerForm.get("password")?.dirty) ){
+            <div class="bg-danger-subtle p-2  rounded-2">
+                @if(registerForm.get("password")?.getError("required")) {
+                    <p class="m-0">password is required</p>
+                }
+                 @else if(registerForm.get("password")?.getError("pattern") && registerForm.get("password")?.dirty ){
+                    <p class="m-0">Min Length is 6.Max 20</p>
+                }
+               
+               
+            </div>
+        }
+       
+        </div>
+        <div class="py-1 position-relative ">       
+        <label for="rePassword" class="w-100 ">rePassword:</label>
+        <input formControlName="rePassword" type="password" #repass (keydown)="handelerr()" id="rePassword" class="form-control">
+        @if(registerForm.get("rePassword")?.dirty){
+           
+            <i class="fa-regular position-absolute end-0 top-m me-2 fa-eye" [class.d-none]="reshow" (click)="(repass.type='text'); reshow=true" ></i>
+            <i class="fa-regular position-absolute end-0 top-m me-2 fa-eye-slash" [class.d-none]="!reshow" (click)="(repass.type='password') ;reshow=false"></i>
+        
+    }
+        @if(registerForm.getError("mismatch") && ( registerForm.get("rePassword")?.touched ||registerForm.get("rePassword")?.dirty)){
+            <div class="bg-danger-subtle p-2 rounded-2">
+                <p class="m-0">Must like password </p>
+            </div>
+        }
+       
+        </div>
+        <button type="submit"  class="btn-main d-block ms-auto">register
+            @if(isloading){
+                <span> 
+                    <i class="fas fa-spin fa-spinner"></i>
+                </span>
+            }
+        </button>
+        <div class="bg-danger-subtle rounded-2">
+            @if (msgerr) {
+                  <p class="m-0 w-100 p-2 mt-1">{{msgerr}}</p>
+            }
+        </div>
+        <div class="bg-success-subtle rounded-2">
+            @if (msgsuc) {
+                  <p class="m-0 w-100 p-2 mt-1">{{msgsuc}}</p>
+            }
+        </div>
+    </form>
+</section>

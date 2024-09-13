@@ -1,0 +1,74 @@
+<section class="pt-5 register-w m-auto pb-2 mb-2">
+    <img src="./assets/images/freshcart-logo.svg" class="logo-w m-auto d-block" alt="">
+    <form [formGroup]="loginForm" (ngSubmit)="printforminfo()" class=" border shadow p-2 py-3 m-auto">
+       
+  
+       
+        <div class="py-1">
+        
+        <label for="email" class="w-100">email:</label>
+        <input formControlName="email" (keypress)="handelmsg()" type="email" id="email" placeholder="Enter your email :" class="form-control">
+        @if(loginForm.get("email")?.errors && (loginForm.get("email")?.touched ||loginForm.get("email")?.dirty)){
+            @if(loginForm.get("email")?.getError("required") ){
+                    <div class="bg-danger-subtle px-2 py-1 rounded-2">
+                    <p class="m-0">email is required</p>
+                </div>
+                }
+             
+               
+        }
+       
+                
+        </div>
+     
+        <div class="pt-1 pb-2 position-relative">
+        
+        <label for="password" class="w-100">password:</label>
+        <input formControlName="password" #pass (keypress)="handelmsg()" placeholder="Enter your password :" type="password" id="password" class="form-control">
+        @if(loginForm.get("password")?.dirty){
+            <i class="fa-regular position-absolute end-0 top-m me-2 fa-eye" [class.d-none]="show" (click)="(pass.type='text'); show=true" ></i>
+            <i class="fa-regular position-absolute end-0 top-m me-2 fa-eye-slash" [class.d-none]="!show" (click)="(pass.type='password') ;show=false"></i>
+        }
+       
+
+        
+        @if(loginForm.get("password")?.errors &&(loginForm.get("password")?.touched ||loginForm.get("password")?.dirty) ){
+            @if(loginForm.get("password")?.getError("required")) {
+                    <div class="bg-danger-subtle px-2 py-1  rounded-2" >
+                    <p class="m-0">password is required</p>
+                </div>
+                }
+               
+               
+               
+        }
+       
+        </div>
+
+        
+        <div class="d-flex justify-content-between align-items-center">
+        <a routerLink="/forgot" class="m-0 ps-2  link-primary">Forget Password</a>
+            <button type="submit"  class="btn-main d-block ms-auto">login
+              @if(isloading){
+                <span> 
+                    <i class="fas fa-spin fa-spinner"></i>
+                </span>
+              }
+            </button>
+        </div>
+        @if(msgerr){
+            <div class="bg-danger-subtle p-2 mt-1 rounded-2">
+                <p class="m-0">
+                    {{msgerr}}
+                </p>
+            </div>
+        }
+        @if(msgsuc){
+            <div class="bg-success-subtle p-2 mt-1 rounded-2">
+                <p class="m-0">
+                    {{msgsuc}}
+                </p>
+            </div>
+        }
+    </form>
+</section>

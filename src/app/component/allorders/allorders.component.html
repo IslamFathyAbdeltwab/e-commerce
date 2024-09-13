@@ -1,0 +1,16 @@
+<section class="container my-3">
+    <h3>Your Order:</h3>
+    <div class="row my-4">
+      @for(order of orderdata;track $index){
+        <div class="col-lg-2 col-md-3 col-6  " >
+            <div  class="content product p-2">
+                <img height="270px" [src]="order.product.imageCover" class="w-100" alt="">
+                <p class="m-0 text-center">{{order.product.title.split(" ",2).join(" ")}}</p>
+                
+                <p class="m-0">brand:  <img [src]="order.product.brand.image" class="w-50" alt=""> </p>
+                <p class="m-0">price:{{order.price}}</p>
+            </div>
+        </div>
+      }
+    </div>
+</section>
